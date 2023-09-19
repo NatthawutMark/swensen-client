@@ -39,6 +39,10 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit(): void {
 
+        let hasLogin = this.userService.currentUserValue ?? null
+        if (hasLogin != null) {
+            this.router.navigate(['/home'])
+        }
     }
 
     checkTerm(item: any) {

@@ -13,8 +13,11 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MaterialModule } from './shared/material/material.module';
 import { HttpClientModule } from '@angular/common/http';
-
-
+import { ProductComponent } from './product/product.component';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { AdminLoginComponent } from './Admin/admin-login/admin-login.component';
+import { AdminProductComponent } from './Admin/admin-product/admin-product.component';
+import { AdminProductAddComponent } from './Admin/admin-product-add/admin-product-add.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -30,7 +33,11 @@ const maskConfig: Partial<IConfig> = {
     LayoutComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProductComponent,
+    AdminLoginComponent,
+    AdminProductComponent,
+    AdminProductAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,8 @@ const maskConfig: Partial<IConfig> = {
     NgxMaskDirective,
     NgxMaskPipe,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    NgImageSliderModule
   ],
   providers: [provideNgxMask(maskConfig)],
   bootstrap: [AppComponent]

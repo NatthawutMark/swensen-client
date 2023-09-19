@@ -1,0 +1,76 @@
+<form [formGroup]="form" fxLayout="column" autocomplete="off" fxLayoutGap="15px"> 
+    <div mat-dialog-title class="text-blue" style="border-bottom: 1px solid lightgray;">
+        <h3 class="no-margin"><b>เพิ่มรายการ</b></h3>
+    </div>
+    
+    <mat-dialog-content class="mat-typography">
+        <div fxLayout="column">
+            <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center">
+                
+                <div fxFlex fxLayoutAlign="end center">
+                    <button mat-raised-button type="button" class="btn-blue" (click)="fileInput.click()" >
+                        อัปโหลดไฟล์
+                    </button>
+                    <input mat-raised-button #fileInput accept="image/*" type="file" (change)="handleFileInput($event)" fxHide single>
+                </div>
+            </div>
+            <div fxLayout="row"  fxLayoutGap="15px" fxLayoutAlign="start center">
+                
+                <div class="UploadTable" fxFlex style="border: 1px solid gray; padding: 15px; border-radius: 5px;">
+                    <br>
+                    <div fxLayout="row" fxLayoutAlign="space-around center" style="padding: 0px 0; border-bottom: 1px solid rgba(0,0,0,.12);">
+                        <mat-label fxFlex="40" style="font-size: 12px; font-weight: 500; color: rgba(0,0,0,.54);"> ชื่อไฟล์ </mat-label>
+                        <mat-label style="width: 150px; font-size: 12px; font-weight: 500; color: rgba(0,0,0,.54);"> ขนาดไฟล์  </mat-label>
+                        <mat-label style="width: 20%; font-size: 12px; font-weight: 500; color: rgba(0,0,0,.54);"> คำอธิบาย </mat-label>
+                        <mat-label fxFlex="8" class="text-right" style=" width: 120px; font-size: 12px; font-weight: 500; color: rgba(0,0,0,.54);"> ดำเนินการ </mat-label>
+                    </div>
+                        <div fxLayout="column" fxLayoutAlign="start" fxLayoutGap="10px" formArrayName="image" style="min-height: 67px;">
+                        
+                            <div id="div-td" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-around center" *ngFor="let item of imageList.controls; index as i" [formGroupName]="i" style="padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,.12);">
+                                <mat-label fxFlex="40">{{item.get('file_name')?.value}}</mat-label>
+                                <mat-label style="width: 150px;">{{formatBytes(item.get('file_size')?.value)}}</mat-label>
+
+                                <!-- <mat-form-field  fxLayoutGap="5px" style="width: 20%;" class="input-control-2 full-width" [floatLabel]="'always'">
+                                    <input matInput formControlName="file_desc" placeholder="กรุณาระบุรายละเอียด">
+                                </mat-form-field> -->
+                            
+                                <span fxFlex="25" fxLayoutAlign="end" fxLayoutGap="5px">
+                                    <button mat-raised-button type="button" class="btn-border-red" (click)="removeFile(i)">
+                                        <!-- <i class="fas fa-trash"></i> -->
+                                    ลบรายการ
+                                    </button>
+                                </span>
+                            </div>
+                        
+                            <div *ngIf="imageList.controls.length == 0" fxFlex="column">
+                                <div style="width: 100%; padding: 10px 0; text-align: center;">
+                                    <mat-label> ไม่มีข้อมูล </mat-label>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+  
+            <!-- ชื่อ - นามสกุล -->
+            <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center">
+            </div>
+  
+            <!-- ประเภทคำสั่งการ -->
+            <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center">
+            </div>
+  
+            <div fxLayout="row" fxLayoutGap="15px">
+            </div>
+            
+            <div fxLayout="row" fxLayoutGap="15px">
+            </div>
+  
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end" style="border-top: 1px solid lightgray;">
+        <div fxLayout="row" fxLayoutGap="5px">
+            <button mat-raised-button class="btn-lightgray" (click)="close()"> ปิดหน้าจอ </button>
+            <button mat-raised-button class="btn-blue" (click)="save()"> ยืนยัน </button>
+        </div> 
+    </mat-dialog-actions>
+  </form>

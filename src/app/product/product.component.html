@@ -1,0 +1,22 @@
+<form [formGroup]="form" [autocomplete]="'off'">
+    <div fxLayout="column">
+        <!-- <div fxLayout="row" fxFlex="50vh" > -->
+        <!-- <div fxFlex="100" fxLayoutAlign="center center">
+            <img src="../../assets/bannersw-banner2.jpg" alt="" >
+        </div> -->
+        <!-- <ng-image-slider image="../../assets/swensens-logo.png"></ng-image-slider> -->
+        <!-- </div> -->
+        <div fxLayout="row" fxFlex fxLayoutAlign="center center">
+            <h1>รายการสินค้า</h1>
+        </div>
+
+        <div fxLayout="row" fxFlex fxLayoutAlign="center center">
+            <mat-chip-listbox aria-label="Fish selection" formControlName="cate">
+                <mat-chip-option value="" color="accent">ทั้งหมด</mat-chip-option>
+                <mat-chip-option *ngFor="let item of listCate" [value]="item.id"
+                    color="accent">{{item.name_th}}</mat-chip-option>
+            </mat-chip-listbox>
+        </div>
+
+    </div>
+</form>

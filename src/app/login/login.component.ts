@@ -26,7 +26,10 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        
+        let hasLogin = this.userService.currentUserValue ?? null
+        if (hasLogin != null) {
+            this.router.navigate(['/home'])
+        }
 
     }
 
