@@ -1,0 +1,23 @@
+<div fxLayout="column" style="background-color: #fff;">
+    <div fxLayout="row" style="padding: 10px 0px;">
+        <div fxFlex="50" fxLayoutGap="15px" fxLayoutAlign="start center">
+            <button mat-button (click)="goHome()">
+                <img src="../../../assets/swensens-logo.png" alt="" width="150px">
+            </button>
+        </div>
+        <div fxFlex="50" fxLayoutAlign="end center" fxLayoutGap="15px">
+
+            <div *ngIf="userService.currentUserValue != null" fxFill fxLayoutAlign="end center" fxLayoutGap="15px">
+                <button mat-button [matMenuTriggerFor]="menu">Welcome!, {{userService.currentUserValue?.first_name}} {{userService.currentUserValue?.last_name}} </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="Logout()">ออกระบบ</button>
+                </mat-menu>
+            </div>
+
+            <div *ngIf="userService.currentUserValue == null" fxFill fxLayoutAlign="end center" fxLayoutGap="15px">
+                <button mat-raised-button class="btn-white" fxFlex="25" (click)="goRegister()"> สมัครสมาชิก </button>
+                <button mat-raised-button class="btn-red" fxFlex="25" (click)="goLogin()"> เข้าสู่ระบบ </button>
+            </div>
+        </div>
+    </div>
+</div>
