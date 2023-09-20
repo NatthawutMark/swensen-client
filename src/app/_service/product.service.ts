@@ -7,7 +7,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class ProductService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     list(data: any) {
         return this.http.post<any>(`${environment.apiUrl}/api/product/list`, data).pipe(map(res => {
@@ -15,16 +15,43 @@ export class ProductService {
         }));
     }
 
-    listPromotion(data: any) {
-        return this.http.post<any>(`${environment.apiUrl}/api/users/promotion`, data).pipe(map(res => {
+    // listPromotion(data: any) {
+    //     return this.http.post<any>(`${environment.apiUrl}/api/users/promotion`, data).pipe(map(res => {
+    //         return res;
+    //     }));
+    // }
+
+    submit(_data: any) {
+        console.log('submit', _data);
+
+        let formData = new FormData();
+
+        if (_data.name) {
+            formData.append('name', _data.name);
+        }
+
+        if (_data.cage_id) {
+            formData.append('cage_id', _data.cage_id);
+        }
+        
+        if (_data.image) {
+            for (let i = 0; i < _data.image.length; i++) {
+                formData.append('image', _data.image[i].file_blob, _data.image[i].file_blob.file_name);
+            }
+        }
+
+        return this.http.post<any>(`${environment.apiUrl}/api/product/submit`, formData).pipe(map(res => {
+            return res;
+        }));
+    }
+    
+    remove(_data: any) {
+        return this.http.post<any>(`${environment.apiUrl}/api/product/remove`, _data).pipe(map(res => {
             return res;
         }));
     }
 
-    //   setting(data: any) {
-    //     return this.http.post<any>(`${environment.apiUrl}/api/configoicstamp/setting`, data).pipe(map(res => {
-    //       return res;
-    //     }));
-    //   }
-
+    // download(_data: any) {
+    //     return this.httpClient.get(`${environment.fileApiUrl}/api/file/download/` + _data.fileId, { responseType: 'blob' });
+    // }
 }

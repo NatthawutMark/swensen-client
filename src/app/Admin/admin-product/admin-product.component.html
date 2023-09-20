@@ -1,5 +1,5 @@
 <div fxLayout="column">
-    <div fxLayout="row" fxFlex="80vh" style="padding: 5vh 0px;background-image: linear-gradient(#fc7e7a, #fd4d49);">
+    <div fxLayout="row" fxFlex style="padding: 5vh 0px;background-image: linear-gradient(#fc7e7a, #fd4d49);">
         <div fxFlex></div>
         <div fxFlex="70" fxLayoutGap="15px">
             <mat-card>
@@ -7,7 +7,7 @@
                     <div fxLayout="column">
                         <div fxLayout="row" fxLayoutAlign="end center" fxFlex>
                             <button mat-raised-button class="btn-white" (click)="add()">เพิ่มสินค้า</button>
-                            
+
                         </div>
 
                         <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100">
@@ -22,18 +22,25 @@
                                     <th>#</th>
                                     <th>รูป</th>
                                     <th>รายการสินค้า</th>
+                                    <th>หมวดหมู่</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th>#</th>
-                                    <th>รูป</th>
-                                    <th>รายการสินค้า</th>
-                                    <th>Action</th>
+                                <tr *ngFor="let item of listPro;index as i">
+                                    <th>{{i+1}}</th>
+                                    <th><img src="{{item.file_image}}" width="150px"></th>
+                                    <th>{{item.name}}</th>
+                                    <th>{{item.cate_name}}</th>
+                                    <th>
+                                        <button mat-raised-button class="btn-red" (click)="remove(item.id)">
+                                            ลบรายการ
+                                        </button>
+                                    </th>
                                 </tr>
                             </tbody>
                         </table>
+                        
                     </div>
 
                 </mat-card-content>

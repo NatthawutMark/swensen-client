@@ -1,10 +1,10 @@
-<form [formGroup]="form" fxLayout="column" autocomplete="off" fxLayoutGap="15px"> 
+<form [formGroup]="form" fxLayout="column" autocomplete="off" fxLayoutGap="15px">
     <div mat-dialog-title class="text-blue" style="border-bottom: 1px solid lightgray;">
         <h3 class="no-margin"><b>เพิ่มรายการ</b></h3>
     </div>
-    
+
     <mat-dialog-content class="mat-typography">
-        <div fxLayout="column">
+        <!-- <div fxLayout="column">
             <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center">
                 
                 <div fxFlex fxLayoutAlign="end center">
@@ -14,6 +14,7 @@
                     <input mat-raised-button #fileInput accept="image/*" type="file" (change)="handleFileInput($event)" fxHide single>
                 </div>
             </div>
+            <div>&nbsp;</div>
             <div fxLayout="row"  fxLayoutGap="15px" fxLayoutAlign="start center">
                 
                 <div class="UploadTable" fxFlex style="border: 1px solid gray; padding: 15px; border-radius: 5px;">
@@ -30,13 +31,13 @@
                                 <mat-label fxFlex="40">{{item.get('file_name')?.value}}</mat-label>
                                 <mat-label style="width: 150px;">{{formatBytes(item.get('file_size')?.value)}}</mat-label>
 
-                                <!-- <mat-form-field  fxLayoutGap="5px" style="width: 20%;" class="input-control-2 full-width" [floatLabel]="'always'">
+                               <mat-form-field  fxLayoutGap="5px" style="width: 20%;" class="input-control-2 full-width" [floatLabel]="'always'">
                                     <input matInput formControlName="file_desc" placeholder="กรุณาระบุรายละเอียด">
-                                </mat-form-field> -->
+                                </mat-form-field>
                             
                                 <span fxFlex="25" fxLayoutAlign="end" fxLayoutGap="5px">
                                     <button mat-raised-button type="button" class="btn-border-red" (click)="removeFile(i)">
-                                        <!-- <i class="fas fa-trash"></i> -->
+                                   <i class="fas fa-trash"></i> 
                                     ลบรายการ
                                     </button>
                                 </span>
@@ -51,11 +52,11 @@
                 </div>
             </div>
   
-            <!-- ชื่อ - นามสกุล -->
+            ชื่อ - นามสกุล
             <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center">
             </div>
   
-            <!-- ประเภทคำสั่งการ -->
+            ประเภทคำสั่งการ
             <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center">
             </div>
   
@@ -65,12 +66,52 @@
             <div fxLayout="row" fxLayoutGap="15px">
             </div>
   
+        </div> -->
+        <div fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <input class="form-control" type="file" (change)="onChange($event)" fxFlex="30" formArrayName="image">
+
+                <!-- <button (click)="onUpload()" class="btn btn-success">
+                Upload
+            </button> -->
+            </div>
+            <mat-card>
+                <mat-card-content>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-label class="text-left" fxFlex="50">ชื่อรายการ</mat-label>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-form-field class="example-full-width" fxFlex="50">
+                            <mat-label>ชื่อรายการ</mat-label>
+                            <input matInput placeholder="" type="text" formControlName="name" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-label class="text-left" fxFlex="50">หมวดหมู่</mat-label>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+
+                        <mat-form-field fxFlex="50">
+                            <!-- <mat-label>Favorite food</mat-label> -->
+                            <mat-select formControlName="cage_id" required >
+                                <mat-option *ngFor="let item of listCate" [value]="item.id"> {{item.name_th}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>
+
+                </mat-card-content>
+            </mat-card>
         </div>
     </mat-dialog-content>
     <mat-dialog-actions align="end" style="border-top: 1px solid lightgray;">
         <div fxLayout="row" fxLayoutGap="5px">
             <button mat-raised-button class="btn-lightgray" (click)="close()"> ปิดหน้าจอ </button>
-            <button mat-raised-button class="btn-blue" (click)="save()"> ยืนยัน </button>
-        </div> 
+            <button mat-raised-button class="btn-blue" (click)="submit()"> ยืนยัน </button>
+        </div>
     </mat-dialog-actions>
-  </form>
+</form>
