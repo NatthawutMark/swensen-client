@@ -26,6 +26,7 @@ export class AdminProductAddComponent implements OnInit {
     shortLink: string = "";
     loading: boolean = false; // Flag variable
     file: File[] = []; // Variable to store file
+    preview: any;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -150,16 +151,19 @@ export class AdminProductAddComponent implements OnInit {
     // On file Select
     onChange(event: any) {
         // this.file = event.target.files[0];
+        if (this.imageList.controls.length > 0) {
+            this.imageList.clear()
+        }
 
         // console.log(event);
         const file = event.target.files[0];
-        console.log(this.file);
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
             this.fileBase64 = reader.result
-            console.log(this.fileBase64);
-            // this.form.get('image')?.setValue(this.fileBase64);
+            this.preview = reader.result
+            console.log(reader);
+            
             this.imageList.push(
                 this.fb.group({
                     file_name: file.name,
@@ -169,6 +173,7 @@ export class AdminProductAddComponent implements OnInit {
                     // file_blob: reader.result
                     file_blob: file
                 }))
+
         };
     }
 
