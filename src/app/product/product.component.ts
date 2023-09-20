@@ -66,7 +66,7 @@ export class ProductComponent implements OnInit {
         let id = event.source.value;
         console.log(id);
         
-        if (event.value == "") {
+        if (event.value == "" || typeof event.value == 'undefined') {
             this.listPro = this.mastListPro;
         }
         else {
