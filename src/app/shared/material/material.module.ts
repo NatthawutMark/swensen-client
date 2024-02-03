@@ -42,78 +42,76 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 export const MY_FORMATS = {
-  parse: {
-    dateInput: 'YYYY-MM-DD',
-  },
-  display: {
-    dateInput: 'input',
-    monthYearLabel: { year: 'numeric', month: 'short' },
-    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-    monthYearA11yLabel: { year: 'numeric', month: 'long' },
-  }
+    parse: {
+        dateInput: 'YYYY-MM-DD',
+    },
+    display: {
+        dateInput: 'input',
+        monthYearLabel: { year: 'numeric', month: 'short' },
+        dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
+        monthYearA11yLabel: { year: 'numeric', month: 'long' },
+    }
 };
 
 const mm = [
-  FormsModule,
-  ReactiveFormsModule,
-  MatAutocompleteModule,
-  MatBadgeModule,
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatCheckboxModule,
-  MatChipsModule,
-  MatStepperModule,
-  MatDatepickerModule,
-  MatDialogModule,
-  MatExpansionModule,
-  MatFormFieldModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
-  MatPaginatorModule,
-  MatProgressBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatRippleModule,
-  MatSelectModule,
-  MatSidenavModule,
-  MatSliderModule,
-  MatSlideToggleModule,
-  MatSnackBarModule,
-  MatSortModule,
-  MatTableModule,
-  MatTabsModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MatTreeModule,
-  MatNativeDateModule,
-  FlexLayoutModule,
-  NgxMatSelectSearchModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,
+    MatNativeDateModule,
+    FlexLayoutModule,
+    NgxMatSelectSearchModule,
 ]
 
 @NgModule({
-  imports: [...mm],
-  exports: [...mm],
-  providers: [
-    {
-      provide: LOCALE_ID,
-      useValue: "th-TH"
-    },
-  ]
+    imports: [...mm],
+    exports: [...mm],
+    providers: [
+        {
+            provide: LOCALE_ID,
+            useValue: "th-TH"
+        },
+    ]
 })
 
 export class MaterialModule {
-  constructor(public matIconRegistry: MatIconRegistry) {
-    // matIconRegistry.registerFontClassAlias('fontawesome', 'fa');
-  }
+    constructor(public matIconRegistry: MatIconRegistry) { }
 
-  static forRoot(): ModuleWithProviders<any> {
-    return {
-      ngModule: MaterialModule,
-      providers: [MatIconRegistry]
+    static forRoot(): ModuleWithProviders<any> {
+        return {
+            ngModule: MaterialModule,
+            providers: [MatIconRegistry]
+        }
     }
-  }
 }
