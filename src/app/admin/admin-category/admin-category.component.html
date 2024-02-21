@@ -5,18 +5,19 @@
             <mat-card>
                 <mat-card-content>
                     <div fxLayout="column">
+                        
                         <div fxLayout="row">
                             <div fxLayoutAlign="start center" fxFlex>
                                 <button mat-raised-button class="btn-white" (click)="back()">ย้อนกลับ</button>
                             </div>
                             <div fxLayoutAlign="end center" fxFlex>
-                                <button mat-raised-button class="btn-white" (click)="add()">เพิ่มสินค้า</button>
+                                <button mat-raised-button class="btn-white" (click)="add()">เพิ่มหมวดหมู่</button>
                             </div>
                         </div>
 
                         <div fxLayout="row" fxLayoutAlign="center center" fxFlex="100">
                             <mat-label fxFlex="100" class="text-center">
-                                <h1>รายการสินค้า</h1>
+                                <h1>หมวดหมู่สินค้า</h1>
                             </mat-label>
                         </div>
 
@@ -31,7 +32,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of listPro;index as i">
+                                <tr *ngFor="let item of listCategory;index as i"> 
                                     <th>{{i+1}}</th>
                                     <th><img src="{{item.file_image}}" width="150px"></th>
                                     <th>{{item.name}}</th>
@@ -42,7 +43,7 @@
                                         </button>
                                     </th>
                                 </tr>
-                                <tr *ngIf="listPro.length <= 0">
+                                <tr *ngIf="listCategory.length <= 0">
                                     <th colspan="5">ไม่มีข้อมููล</th>
                                 </tr>
                             </tbody>

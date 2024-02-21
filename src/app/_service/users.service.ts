@@ -10,13 +10,23 @@ export class UsersService {
     public currentUser!: Observable<any>;
     private currentUserSubject!: BehaviorSubject<any>;
 
+    public currentAdmin!: Observable<any>;
+    private currentAdminSubject!: BehaviorSubject<any>;
+
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')!));
         this.currentUser = this.currentUserSubject.asObservable();
+
+        this.currentAdminSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentAdmin')!));
+        this.currentAdmin = this.currentAdminSubject.asObservable();
     }
 
     public get currentUserValue(): any {
         return this.currentUserSubject.value;
+    }
+
+    public get currentAdminValue(): any {
+        return this.currentAdminSubject.value;
     }
 
     register(data: any) {
@@ -27,8 +37,18 @@ export class UsersService {
 
     login(data: any) {
         return this.http.post<any>(`${environment.apiUrl}/api/users/login`, data).pipe(map(res => {
-            localStorage.setItem('currentUser', JSON.stringify(res.results.data))
-            this.currentUserSubject.next(res.results.data);
+            let strUser = ''
+            var result = res.results.data;
+            if (result.type == 'admin') {
+                // strUser = 'currentAdmin';
+                localStorage.setItem('currentAdmin', JSON.stringify(result))
+                this.currentAdminSubject.next(result);
+            }
+            else {
+                // strUser = 'currentUser';
+                localStorage.setItem('currentUser', JSON.stringify(result))
+                this.currentUserSubject.next(result);
+            }
             return res;
         }));
     }

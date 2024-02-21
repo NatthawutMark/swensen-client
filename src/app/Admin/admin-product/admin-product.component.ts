@@ -8,6 +8,7 @@ import { AdminProductAddComponent } from '../admin-product-add/admin-product-add
 import { Location } from '@angular/common';
 import { ProductService } from 'src/app/_service/product.service';
 import { lastValueFrom } from 'rxjs';
+// import { AdminProductAddComponent } from '../admin-product-add/admin-product-add.component';
 
 @Component({
     selector: 'app-admin-product',
@@ -23,12 +24,16 @@ export class AdminProductComponent implements OnInit {
         private productService: ProductService,
         private router: Router,
         private dialog: MatDialog,
-        private location: Location,
+        private usersService: UsersService,
     ) {
 
     }
 
     ngOnInit(): void {
+        if (this.usersService.currentAdminValue == null) {
+            this.router.navigate(['/admin/login']);
+            return;
+        }
         this.getProduct()
     }
 
@@ -113,7 +118,10 @@ export class AdminProductComponent implements OnInit {
             }
 
         })
+    }
 
+    back() {
+        this.router.navigate(['admin/home'])
     }
 
 }

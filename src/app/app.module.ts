@@ -8,16 +8,18 @@ import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask, IConfig } from 'ngx-mask';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './store/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MaterialModule } from './shared/material/material.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductComponent } from './product/product.component';
+import { ProductComponent } from './store/product/product.component';
 import { NgImageSliderModule } from 'ng-image-slider';
-import { AdminLoginComponent } from './Admin/admin-login/admin-login.component';
-import { AdminProductComponent } from './Admin/admin-product/admin-product.component';
-import { AdminProductAddComponent } from './Admin/admin-product-add/admin-product-add.component';
+// import { AdminLoginComponent } from './Admin/admin-login/admin-login.component';
+// import { AdminProductComponent } from './Admin/admin-product/admin-product.component';
+// import { AdminProductAddComponent } from './Admin/admin-product-add/admin-product-add.component';
+import { LayoutDefaultComponent } from './shared/layout/layout-default/layout-default.component';
+import { LayoutAdminComponent } from './shared/layout/layout-admin/layout-admin.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -31,13 +33,15 @@ const maskConfig: Partial<IConfig> = {
     HeaderComponent,
     FooterComponent,
     LayoutComponent,
-    HomeComponent,
+    // HomeComponent,
     LoginComponent,
     RegisterComponent,
-    ProductComponent,
-    AdminLoginComponent,
-    AdminProductComponent,
-    AdminProductAddComponent,
+    // ProductComponent,
+    // AdminLoginComponent,
+    // AdminProductComponent,
+    // AdminProductAddComponent,
+    LayoutDefaultComponent,
+    LayoutAdminComponent,
   ],
   imports: [
     BrowserModule,

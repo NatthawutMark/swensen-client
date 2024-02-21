@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../_service/users.service';
-import { CategoryService } from '../_service/category.service';
+import { UsersService } from '../../_service/users.service';
+import { CategoryService } from '../../_service/category.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
-import { ProductService } from '../_service/product.service';
+import { ProductService } from '../../_service/product.service';
 
 @Component({
     selector: 'app-product',

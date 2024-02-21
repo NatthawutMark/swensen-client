@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
                 Swal.close();
                 this.userService.login(data).subscribe(res => {
                     if (res != null && res.status == true) {
-                        this.router.navigate(['/home'])
+                        // this.router.navigate(['/home'])
                     }
                     else {
                         Swal.fire({

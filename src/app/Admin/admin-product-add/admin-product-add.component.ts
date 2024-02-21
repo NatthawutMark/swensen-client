@@ -220,7 +220,7 @@ export class AdminProductAddComponent implements OnInit {
                             allowOutsideClick: false,
                             timer: 3000,
                         }).then(() => {
-                            this.dialogRef.close('');
+                            // this.dialogRef.close('');
                             location.reload();
                         });
                     }

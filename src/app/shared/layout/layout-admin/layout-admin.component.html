@@ -1,0 +1,29 @@
+<div fxLayout="column" fxLayoutAlign="start none" fxFill style="background-color: #f4f4f4;">
+
+    <div fxLayout="column" style="background-color: #fff;">
+        <div fxLayout="row" style="padding: 10px 0px;">
+            <div fxFlex="50" fxLayoutGap="15px" fxLayoutAlign="start center">
+                <button mat-button (click)="goHome()">
+                    <img src="../../../assets/swensens-logo.png" alt="" width="150px">
+                </button>
+            </div>
+            <div fxFlex="50" fxLayoutAlign="end center" fxLayoutGap="15px">
+                <div *ngIf="userService.currentAdminValue != null" fxFill fxLayoutAlign="end center" fxLayoutGap="15px">
+                    <button mat-button [matMenuTriggerFor]="menu">Welcome!, {{userService.currentAdminValue?.first_name}}
+                        {{userService.currentAdminValue?.last_name}} </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="Logout()">ออกระบบ</button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div >
+        <div fxFlex="100" class="container">
+            <router-outlet></router-outlet><!-- fxLayoutGap="15"  -->
+        </div>
+    </div>
+
+    <app-footer></app-footer>
+</div>

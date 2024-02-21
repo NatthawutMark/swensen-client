@@ -1,0 +1,11 @@
+<div fxFill fxLayout="column" fxLayoutAlign="start none" style="padding: 15px 0px;background-image: linear-gradient(#fc7e7a, #fd4d49);">
+    <div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10">
+        <div *ngFor="let item of listMenu">
+            <mat-card class="menu" (click)="goto(item)">
+                <mat-card-content>
+                    <p>{{item.name}}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
