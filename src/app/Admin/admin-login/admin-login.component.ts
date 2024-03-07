@@ -39,7 +39,6 @@ export class AdminLoginComponent implements OnInit {
         var resAdmin = await this.usersService.login(where).toPromise();
         if (resAdmin != null && resAdmin.status == true) {
             let res = resAdmin.results.data;
-            console.log('login success');
             this.router.navigate(['/admin/home']);
         }
     }

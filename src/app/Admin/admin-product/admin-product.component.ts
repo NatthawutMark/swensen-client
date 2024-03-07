@@ -38,8 +38,9 @@ export class AdminProductComponent implements OnInit {
     }
 
     async getProduct() {
-        var resPro = await lastValueFrom(this.productService.list({}));
-        if (resPro != null && resPro != null) {
+        this.listPro = []
+        var resPro = await this.productService.list({}).toPromise();
+        if (resPro != null && resPro.status == true) {
             let res = resPro.results.data;
             res.forEach((item: any) => {
                 this.listPro.push({
@@ -47,9 +48,11 @@ export class AdminProductComponent implements OnInit {
                     name: item.name,
                     file_image: item.file_image,
                     cate_name: item.cate_name,
+                    price: item.price,
+                    qty: item.qty,
+                    status_name: item.status_name,
                 })
             })
-            console.log(this.listPro);
 
         }
     }
@@ -57,21 +60,30 @@ export class AdminProductComponent implements OnInit {
     add() {
         const dialogRef = this.dialog.open(AdminProductAddComponent, {
             disableClose: true,
-            width: '80%',
-            data: {}
+            width: '60%',
         });
 
         dialogRef.afterClosed().subscribe((res: any) => {
             if (res && res.status === true) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'บันทึกสำเร็จ',
-                    showConfirmButton: false,
-                    allowOutsideClick: false,
-                    timer: 3000,
-                }).then(() => {
+                this.getProduct();
+            }
+        });
+    }
 
-                })
+    edit(element: any) {
+        let id = element.id
+
+        const dialogRef = this.dialog.open(AdminProductAddComponent, {
+            disableClose: true,
+            width: '60%',
+            data: {
+                id: id
+            }
+        });
+
+        dialogRef.afterClosed().subscribe((res: any) => {
+            if (res && res.status === true) {
+                this.getProduct();
             }
         });
     }
@@ -97,14 +109,15 @@ export class AdminProductComponent implements OnInit {
                             allowOutsideClick: false,
                             timer: 3000,
                         }).then(() => {
-                            this.listPro = this.listPro.filter(x => x.id != data)
-                            // window.location.reload();
+                            // this.listPro = this.listPro.filter(x => x.id != data);
+                            this.getProduct();
                         })
                     }
                     else {
                         Swal.fire({
                             icon: 'warning',
-                            title: 'ไม่พบข้อมูลผู้ใช้ กรุณาลองใหม่',
+                            title: 'ลบไม่สำเร็จ',
+                            html: res._message,
                             confirmButtonText: 'ปิดหน้าจอ'
                         });
                     }

@@ -43,12 +43,10 @@ export class AdminHomeComponent implements OnInit {
             this.router.navigate(['/admin/login']);
             return;
         }
-        console.log(this.usersService);
 
     }
 
     goto(element: any) {
-        console.log(element);
         this.router.navigate([element.url])
     }
 }

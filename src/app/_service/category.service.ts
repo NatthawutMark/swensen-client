@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -7,24 +7,38 @@ import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
-    list(data: any) {
-        return this.http.post<any>(`${environment.apiUrl}/api/category/list`, data).pipe(map(res => {
+    list() {
+        return this.http.get(`${environment.apiUrl}/api/category/`).pipe(map(res => {
             return res;
         }));
     }
 
-    // listPromotion(data: any) {
-    //     return this.http.post<any>(`${environment.apiUrl}/api/users/promotion`, data).pipe(map(res => {
-    //         return res;
-    //     }));
-    // }
+    submit(data: any) {
+        return this.http.post<any>(`${environment.apiUrl}/api/category/`, data).pipe(map(res => {
+            return res;
+        }));
+    }
 
-    //   setting(data: any) {
-    //     return this.http.post<any>(`${environment.apiUrl}/api/configoicstamp/setting`, data).pipe(map(res => {
-    //       return res;
-    //     }));
-    //   }
+    active(id: string) {
+        let params = new HttpParams();
+        params = params.append('id', id)
+        const ops = { params: params }
+        
+        return this.http.get<any>(`${environment.apiUrl}/api/category/active`, ops).pipe(map(res => {
+            return res;
+        }));
+    }
+
+    remove(id: string) {
+        let params = new HttpParams();
+        params = params.append('id', id)
+        const ops = { params: params }
+
+        return this.http.get<any>(`${environment.apiUrl}/api/category/remove`, ops).pipe(map(res => {
+            return res;
+        }));
+    }
 
 }

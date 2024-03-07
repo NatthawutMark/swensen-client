@@ -1,55 +1,60 @@
-
-<form [formGroup]="form" autocomplete="off" >
+<form [formGroup]="form" autocomplete="off">
     <div fxFlex style="padding: 10px;">
         <div fxFlex></div>
         <div fxLayout="column" fxFlex="30">
             <mat-card>
-                <mat-card-header fxLayout="row" style="background-image:url(../../assets/card-head.png); background-size: contain; background-repeat: no-repeat; padding: 100px 0px;">
+                <mat-card-header fxLayout="row"
+                    style="background-image:url(../../assets/card-head.png); background-size: contain; background-repeat: no-repeat; padding: 100px 0px;">
                     <div fxLayout="column" fxFlex="50" fxLayoutGap="10px" style="padding: 0px 20px;">
-                        <mat-label class="text-white"><h1>ยินดีต้อนรับ</h1></mat-label>
-                        <mat-label class="text-white"><h3>เข้าสู่ระบบเพื่อใช้งาน</h3></mat-label>
+                        <mat-label class="text-white">
+                            <h1>ยินดีต้อนรับ</h1>
+                        </mat-label>
+                        <mat-label class="text-white">
+                            <h3>เข้าสู่ระบบเพื่อใช้งาน</h3>
+                        </mat-label>
                     </div>
                     <div fxFlex="50"></div>
                 </mat-card-header>
-                <mat-card-content fxLayout="column">
+                <mat-card-content fxLayout="column" fxLayoutGap="10px">
 
-                    <div fxLayout="row" fxLayoutAlign="center center" >
-                     <mat-label class="text-left"fxFlex="80">อีเมล</mat-label>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-label class="text-left" fxFlex="80">Username</mat-label>
                     </div>
 
                     <div fxLayout="row" fxLayoutAlign="center center">
-                        <mat-form-field class="example-full-width" fxFlex="80" >
-                          <mat-label>อีเมล</mat-label>
-                          <input matInput placeholder="" type="email" formControlName="email" required ngModel email >
+                        <mat-form-field class="example-full-width" fxFlex="80">
+                            <mat-label>Username</mat-label>
+                            <input matInput placeholder="" type="text" formControlName="username" required ngModel>
                         </mat-form-field>
-                    </div>
-
-                    <div fxLayout="row" fxLayoutAlign="center center" >
-                     <mat-label class="text-left"fxFlex="80">รหัสผ่าน</mat-label>
                     </div>
 
                     <div fxLayout="row" fxLayoutAlign="center center">
-                        <mat-form-field class="example-full-width" fxFlex="80" >
-                          <mat-label>รหัสผ่าน</mat-label>
-                          <input matInput placeholder="" type="password" formControlName="password" [type]="hide ? 'password' : 'text'" required>
-                          <button mat-icon-button matSuffix
-                            type="button"
-                            [attr.aria-label]="'Hide password'"
-                            [attr.aria-pressed]="hide"
-                            (click)="hide = !hide">
-                          <mat-icon class=" text-darkgray">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                      </button>
+                        <mat-label class="text-left" fxFlex="80">รหัสผ่าน</mat-label>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-form-field class="example-full-width" fxFlex="80">
+                            <mat-label>รหัสผ่าน</mat-label>
+                            <input matInput placeholder="" type="password" formControlName="password"
+                                [type]="hide ? 'password' : 'text'" required>
+                            <button mat-icon-button matSuffix type="button" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide" (click)="hide = !hide">
+                                <mat-icon class=" text-darkgray">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
                         </mat-form-field>
                     </div>
 
-                    <div fxLayout="row" fxLayoutAlign="center center" >
+                    <!-- <div fxLayout="row" fxLayoutAlign="center center" >
                      <mat-label class="text-right"fxFlex="80" class="text-red text-right">ลืมรหัสผ่าน</mat-label>
-                    </div>
-                    
-                    <div fxLayout="row" fxLayoutAlign="center center">&nbsp;</div>
+                    </div> -->
 
                     <div fxLayout="row" fxLayoutAlign="center center">
-                        <button mat-raised-button fxFlex="80" class="btn-red" (click)="login()"> เข้าสู่ระบบ </button>    
+                        <button mat-raised-button fxFlex="80" class="btn-red" (click)="login()"> เข้าสู่ระบบ </button>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button mat-raised-button fxFlex="80" class="btn-gray" (click)="goRegister()"> สมัครสมาชิก
+                        </button>
                     </div>
                 </mat-card-content>
             </mat-card>

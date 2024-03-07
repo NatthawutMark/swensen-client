@@ -1,1 +1,53 @@
-<p>admin-category-add works!</p>
+<form [formGroup]="form" fxLayout="column" autocomplete="off" fxLayoutGap="15px" style="padding: 15px;">
+    <div mat-dialog-title class="text-blue" style="border-bottom: 1px solid lightgray;">
+        <h3 class="no-margin"><b>เพิ่มหมวดหมู่</b></h3>
+    </div>
+
+    <mat-dialog-content class="mat-typography">
+
+        <div fxLayout="column">
+            <!-- <div fxLayout="row" fxLayoutAlign="center center">
+                <img [src]="preview" style="max-height: 250px;">
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <input class="form-control" type="file" (change)="onChange($event)" fxFlex="30" formArrayName="image">
+            </div> -->
+            <mat-card>
+                <mat-card-content>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-form-field class="example-full-width" fxFlex="50">
+                            <mat-label>ชื่อหมวดหมู่</mat-label>
+                            <input matInput placeholder="" type="text" formControlName="name" required>
+                        </mat-form-field>
+                    </div>
+                    <!--<div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-label class="text-left" fxFlex="50">ชื่อรายการ</mat-label>
+                    </div>
+
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <mat-label class="text-left" fxFlex="50">หมวดหมู่</mat-label>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center center">
+
+                        <mat-form-field fxFlex="50">
+                            <mat-select formControlName="cage_id" required >
+                                <mat-option *ngFor="let item of listCate" [value]="item.id"> {{item.name_th}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>-->
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <div fxLayout="row" fxLayoutGap="5px">
+            <button mat-raised-button class="btn-lightgray" (click)="close()"> ปิดหน้าจอ </button>
+            <button mat-raised-button class="btn-red" (click)="submit()"> ยืนยัน </button>
+        </div>
+    </mat-dialog-actions>
+</form>

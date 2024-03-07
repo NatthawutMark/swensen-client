@@ -23,9 +23,6 @@ export class HeaderComponent implements OnInit {
         // let local = localStorage.getItem('currentUser')
 
         // this.userNow = JSON.parse(local!) ?? null
-
-        // console.log(this.userService.currentUserValue);
-
     }
 
     goLogin() {

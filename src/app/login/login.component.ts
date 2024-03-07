@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
         private router: Router
     ) {
         this.form = this.fb.group({
-            email: [''],
+            username: [''],
             password: [''],
         })
     }
@@ -34,8 +34,10 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        let data = this.form.value;
-        console.log(this.form);
+        let data = {
+            ...this.form.value,
+            type: 'user'
+        };
 
         //#region Validate
         if (data.email == '' || data.password == '') {
@@ -69,7 +71,7 @@ export class LoginComponent implements OnInit {
                 Swal.close();
                 this.userService.login(data).subscribe(res => {
                     if (res != null && res.status == true) {
-                        // this.router.navigate(['/home'])
+                        this.router.navigate(['/store'])
                     }
                     else {
                         Swal.fire({
@@ -90,5 +92,8 @@ export class LoginComponent implements OnInit {
         })
     }
 
+    goRegister() {
+        this.router.navigate(['/register'])
+    }
 
 }

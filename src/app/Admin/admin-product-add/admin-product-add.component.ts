@@ -9,6 +9,7 @@ import { AdminProductComponent } from '../admin-product/admin-product.component'
 import { FileUploadService } from 'src/app/_service/file-upload.service';
 import { CategoryService } from 'src/app/_service/category.service';
 import { ProductService } from 'src/app/_service/product.service';
+import { MaterialModule } from 'src/app/shared/material/material.module'
 
 @Component({
     selector: 'app-admin-product-add',
@@ -17,16 +18,23 @@ import { ProductService } from 'src/app/_service/product.service';
 })
 export class AdminProductAddComponent implements OnInit {
 
+    id = '';
     form: FormGroup
     files: any[] = [];
     listCate: any[] = [];
 
     fileBase64: any;
+    reqType = "add";
 
     shortLink: string = "";
     loading: boolean = false; // Flag variable
     file: File[] = []; // Variable to store file
     preview: any;
+    special = [
+        { id: 'promo', name_th: 'โปรโมชั่น' },
+        { id: 'recom', name_th: 'สินค้าแนะนำ' },
+        { id: 'news', name_th: 'สินค้าใหม่' },
+    ]
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -40,9 +48,15 @@ export class AdminProductAddComponent implements OnInit {
         this.form = this.fb.group({
             image: this.fb.array([]),
             name: [''],
-            cage_id: ['']
+            price: [''],
+            qty: [''],
+            cate_id: [''],
+            special: [''],
         })
-        // this.form.setControl("image", this.fb.array([]));
+        if (data != null) {
+            this.reqType = "edit";
+            this.id = data.id
+        }
     }
 
     get imageList() {
@@ -51,6 +65,46 @@ export class AdminProductAddComponent implements OnInit {
 
     ngOnInit(): void {
         this.getCategoty();
+        if (this.data != null) {
+            this.getdata();
+        }
+    }
+
+    getdata() {
+        if (this.id != '') {
+            this.productService.detail(this.id).subscribe((res: any) => {
+                if (res != null && res.status == true) {
+                    let result = res.results.data;
+
+                    result.images.forEach((img: any) => {
+                        this.productService.getFileBlob(img.id).subscribe((fileImg: any) => {
+
+                            const reader = new FileReader();
+                            reader.readAsDataURL(fileImg);
+                            reader.onload = () => {
+                                this.fileBase64 = reader.result
+                                this.preview = reader.result
+
+                                this.imageList.push(
+                                    this.fb.group({
+                                        file_name: img.file_name,
+                                        file_size: img.file_size.toString(),
+                                        file_ext: img.file_name.split('.')[1],
+                                        file_blob: fileImg,
+                                        base64: reader.result
+                                    }))
+                            };
+                        })
+                    });
+
+                    this.form.get('name')?.setValue(result.name);
+                    this.form.get('price')?.setValue(result.price);
+                    this.form.get('qty')?.setValue(result.qty);
+                    this.form.get('cate_id')?.setValue(result.cate_id);
+                    this.form.get('special')?.setValue(result.special);
+                }
+            })
+        }
     }
 
 
@@ -68,10 +122,11 @@ export class AdminProductAddComponent implements OnInit {
     }
 
     async getCategoty() {
-        var res = await this.categoryService.list({}).toPromise();
-        if (res != null && res.status == true) {
-            this.listCate = res.results.data
-        }
+        await this.categoryService.list().subscribe((res: any) => {
+            if (res != null && res.status == true) {
+                this.listCate = res.results.data;
+            }
+        });
     }
 
     // async handleFileInput(event: any) {
@@ -79,9 +134,6 @@ export class AdminProductAddComponent implements OnInit {
     //     let f: File[] = event.target.files;
 
     //     this.files.push(f[0]);
-
-    //     console.log('dsadasds',event);
-    //     console.log('ssssss',event.target.result);
 
     //     if (this.imageList.value.length == 0) {
     //         for (let i = 0; i < _files.length; i++) {
@@ -149,38 +201,35 @@ export class AdminProductAddComponent implements OnInit {
     // }
 
     // On file Select
+
     onChange(event: any) {
-        // this.file = event.target.files[0];
+
         if (this.imageList.controls.length > 0) {
             this.imageList.clear()
         }
 
-        // console.log(event);
         const file = event.target.files[0];
+
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
             this.fileBase64 = reader.result
             this.preview = reader.result
-            console.log(reader);
-            
+
             this.imageList.push(
                 this.fb.group({
                     file_name: file.name,
                     file_size: file.size.toString(),
                     file_ext: file.name.split('.')[1],
-                    file_type: file.type,
-                    // file_blob: reader.result
-                    file_blob: file
+                    file_blob: file,
+                    base64: reader.result
                 }))
-
         };
     }
 
     // OnClick of button Upload
     onUpload() {
         this.loading = !this.loading;
-        console.log(this.file);
         this.fileUploadService.upload(this.file).subscribe(
             (event: any) => {
                 if (typeof (event) === 'object') {
@@ -196,8 +245,12 @@ export class AdminProductAddComponent implements OnInit {
 
 
     save() {
-        let data = this.form.value;
-        console.log(this.form);
+        let data = {
+            id: this.id,
+            action: this.reqType,
+            imageList: this.imageList.value,
+            ...this.form.value
+        };
 
 
         Swal.fire({
@@ -209,10 +262,9 @@ export class AdminProductAddComponent implements OnInit {
             allowOutsideClick: false,
             showConfirmButton: false,
             didOpen: () => {
-                Swal.close();
                 this.productService.submit(data).subscribe(res => {
+                    Swal.close();
                     if (res.status == true) {
-
                         Swal.fire({
                             icon: 'success',
                             title: 'บันทึกสำเร็จ',
@@ -220,14 +272,17 @@ export class AdminProductAddComponent implements OnInit {
                             allowOutsideClick: false,
                             timer: 3000,
                         }).then(() => {
-                            // this.dialogRef.close('');
-                            location.reload();
+                            let data = {
+                                status: true
+                            }
+                            this.dialogRef.close(data);
                         });
                     }
                     else {
                         Swal.fire({
                             icon: 'warning',
                             title: 'เกิดข้อผิดพลาด',
+                            html: res.message,
                             confirmButtonText: 'ปิดหน้าจอ'
                         });
                     }
@@ -237,7 +292,7 @@ export class AdminProductAddComponent implements OnInit {
                         title: 'เกิดข้อผิดพลาด',
                         confirmButtonText: 'ปิดหน้าจอ'
                     });
-                })
+                });
             }
 
         })
@@ -246,7 +301,6 @@ export class AdminProductAddComponent implements OnInit {
 
     submit() {
         let data = this.form.value;
-        console.log(this.form.value);
         //#region Validate
         if (data.name == '' || data.cate == '') {
             Swal.fire({
@@ -256,28 +310,7 @@ export class AdminProductAddComponent implements OnInit {
             });
             return;
         }
-
-        // if (this.form.status == 'INVALID') {
-        //     Swal.fire({
-        //         icon: 'warning',
-        //         title: 'กรุณาตรวจสอบข้อมูล',
-        //         confirmButtonText: 'ปิดหน้าจอ'
-        //     });
-        //     return;
-        // }
-        //#endregion
-        // Swal.fire({
-        //     icon: 'warning',
-        //     title: 'ยืนยันการสมัครข้อมูล',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#e21c23',
-        //     confirmButtonText: 'ยืนยัน',
-        //     cancelButtonText: 'ยกเลิก',
-        //     reverseButtons: true
-        // }).then(res => {
-        //     if (res.isConfirmed == true)
         this.save();
-        // })
     }
 
     close() {

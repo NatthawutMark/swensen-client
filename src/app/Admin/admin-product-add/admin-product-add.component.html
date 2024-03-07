@@ -1,51 +1,105 @@
 <form [formGroup]="form" fxLayout="column" autocomplete="off" fxLayoutGap="15px">
-    <div mat-dialog-title class="text-blue" style="border-bottom: 1px solid lightgray;">
-        <h3 class="no-margin"><b>เพิ่มรายการ</b></h3>
-    </div>
 
     <mat-dialog-content class="mat-typography">
-        
-        <div fxLayout="column">
+        <div mat-dialog-title class="text-blue" style="border-bottom: 1px solid lightgray;">
+            <h3 class="no-margin"><b>เพิ่มรายการ</b></h3>
+        </div>
+        <br>
+        <div fxLayout="column" fxLayoutGap="15px">
             <div fxLayout="row" fxLayoutAlign="center center">
-                <img [src]="preview" style="max-height: 250px;">
+                <button mat-raised-button (click)="fileImg.click()" class="btn-blue">อัพโหลดรูปภาพ</button>
+                <input class="form-control" hidden #fileImg type="file" (change)="onChange($event)" fxFlex="30"
+                    formArrayName="image">
             </div>
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <input class="form-control" type="file" (change)="onChange($event)" fxFlex="30" formArrayName="image">
+
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <div *ngFor="let item of imageList.controls" fxLayout="column" fxLayoutAlign="center center">
+                    <img [src]="item.get('base64')?.value" style="max-height: 250px;">
+                    <mat-label>{{item.get('file_name')?.value}}</mat-label>
+                </div>
+                <!-- <img [src]="preview" style="max-height: 250px;"> -->
             </div>
+
             <mat-card>
                 <mat-card-content>
 
-                    <div fxLayout="row" fxLayoutAlign="center center">
-                        <mat-label class="text-left" fxFlex="50">ชื่อรายการ</mat-label>
+                    <!-- <div fxLayout="row" fxLayoutAlign="center center">
+                    </div> -->
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+
+                        <div fxLayout="column" fxFlex="50">
+                            <mat-label class="text-left">ชื่อรายการ</mat-label>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="กรุณาระบุข้อมูล" type="text" formControlName="name"
+                                    required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="column" fxFlex="50">
+                            <mat-label class="text-left">หมวดหมู่</mat-label>
+                            <mat-form-field class="example-full-width input-control">
+                                <!-- <mat-label>Favorite food</mat-label> -->
+                                <mat-select formControlName="cate_id" required placeholder="กรุณาเลือกหมวดหมู่สินค้า">
+                                    <mat-option *ngFor="let item of listCate" [value]="item.id"> {{item.name_th}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
                     </div>
 
-                    <div fxLayout="row" fxLayoutAlign="center center">
-                        <mat-form-field class="example-full-width" fxFlex="50">
-                            <mat-label>ชื่อรายการ</mat-label>
-                            <input matInput placeholder="" type="text" formControlName="name" required>
-                        </mat-form-field>
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+                        <div fxLayout="column" fxFlex="50">
+                            <mat-label class="text-left">ราคา</mat-label>
+                            <mat-form-field class="example-full-width input-control">
+                                <input matInput placeholder="กรุณาระบุข้อมูล" mask="separator.0"
+                                    [dropSpecialCharacters]="true" formControlName="price" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="column" fxFlex="50">
+                            <mat-label class="text-left">จำนวน</mat-label>
+                            <mat-form-field class="example-full-width">
+                                <!-- <mat-label>ชื่อรายการ</mat-label> -->
+                                <input matInput placeholder="กรุณาระบุข้อมูล" mask="separator.0"
+                                    [dropSpecialCharacters]="true" formControlName="qty" required>
+                            </mat-form-field>
+                        </div>
                     </div>
 
-                    <div fxLayout="row" fxLayoutAlign="center center">
-                        <mat-label class="text-left" fxFlex="50">หมวดหมู่</mat-label>
-                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+                        <mat-label class="text-left">พิเศษ : </mat-label>
+                        <div fxLayout="column" fxLayoutAlign="center start">
+                            <mat-radio-group class="example-full-width input-control" formControlName="special" >
+                                <mat-radio-button value="">ไม่มี</mat-radio-button>
+                                <mat-radio-button value="promo">โปรโมชั่น</mat-radio-button>
+                                <mat-radio-button value="recom">สินค้าแนะนำ</mat-radio-button>
+                                <mat-radio-button value="news">สินค้าใหม่</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        <!-- <div fxLayout="column" fxFlex="50">
+                            <mat-label class="text-left">ราคา</mat-label>
+                            <mat-form-field class="example-full-width input-control">
+                                <input matInput placeholder="กรุณาระบุข้อมูล" mask="separator.0"
+                                    [dropSpecialCharacters]="true" formControlName="price" required>
+                            </mat-form-field>
+                        </div>
 
-                    <div fxLayout="row" fxLayoutAlign="center center">
-
-                        <mat-form-field fxFlex="50">
-                            <!-- <mat-label>Favorite food</mat-label> -->
-                            <mat-select formControlName="cage_id" required >
-                                <mat-option *ngFor="let item of listCate" [value]="item.id"> {{item.name_th}} </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
+                        <div fxLayout="column" fxFlex="50">
+                            <mat-label class="text-left">จำนวน</mat-label>
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="กรุณาระบุข้อมูล" mask="separator.0"
+                                    [dropSpecialCharacters]="true" formControlName="qty" required>
+                            </mat-form-field>
+                        </div> -->
                     </div>
 
                 </mat-card-content>
             </mat-card>
         </div>
     </mat-dialog-content>
-    <mat-dialog-actions align="end" >
+    <mat-dialog-actions align="end">
         <div fxLayout="row" fxLayoutGap="5px">
             <button mat-raised-button class="btn-lightgray" (click)="close()"> ปิดหน้าจอ </button>
             <button mat-raised-button class="btn-red" (click)="submit()"> ยืนยัน </button>

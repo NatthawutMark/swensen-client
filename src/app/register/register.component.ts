@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
             first_name: [''],
             last_name: [''],
             tel: [''],
+            username: [''],
             email: [''],
             password: [''],
             gender: ['none'],
@@ -46,12 +47,10 @@ export class RegisterComponent implements OnInit {
     }
 
     checkTerm(item: any) {
-        console.log(item);
         this.form.get('checkTerm')?.setValue(item ? true : false)
     }
 
     submit() {
-        console.log(this.form.value);
         Swal.fire({
             icon: 'warning',
             title: 'ยืนยันการสมัครข้อมูล',

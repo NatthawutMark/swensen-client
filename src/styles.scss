@@ -48,35 +48,35 @@ body {
 
 section {
     display: table;
-  }
-  
-  .example-label {
+}
+
+.example-label {
     display: table-cell;
     font-size: 14px;
     margin-left: 8px;
     min-width: 120px;
-  }
-  
-  .example-button-row {
+}
+
+.example-button-row {
     display: table-cell;
     max-width: 600px;
-  }
-  
-  .example-button-row .mat-mdc-button-base {
+}
+
+.example-button-row .mat-mdc-button-base {
     margin: 8px 8px 8px 0;
-  }
-  
-  .example-flex-container {
+}
+
+.example-flex-container {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-  }
-  
-  .example-button-container {
+}
+
+.example-button-container {
     display: flex;
     justify-content: center;
     width: 120px;
-  }
+}
 
 .full-width {
     width: 100%;
@@ -154,15 +154,21 @@ section {
 
 // Button CSS
 .btn-green {
-    border: 1px solid $darkgreen !important;
-    background-color: $darkgreen !important;
+    border: 1px solid greenyellow !important;
+    background-color: greenyellow !important;
     color: $white;
+}
+
+.btn-yellow {
+    border: 1px solid yellowgreen !important;
+    background-color: yellowgreen !important;
+    color: $black !important;
 }
 
 .btn-red {
     border: 1px solid $red !important;
     background-color: $red !important;
-    color: $white!important;
+    color: $white !important;
 }
 
 .btn-white {
@@ -186,12 +192,12 @@ section {
 .btn-pink {
     border: 1px solid $pink !important;
     background-color: $pink !important;
-    color: $white;
+    color: $white !important;
 }
 
 .btn-gray {
-    border: 1px solid #789 !important;
-    background-color: #789 !important;
+    border: 1px solid #b9b9b9 !important;
+    background-color: #b9b9b9 !important;
     color: $white;
 }
 
@@ -572,7 +578,7 @@ section {
 
             th,
             td {
-                // background-color: #35b49747;
+                // background-color: #e63e7f14;
                 border: 1px solid lightgray;
                 padding: 5px 10px;
             }
@@ -1071,4 +1077,10 @@ app-view-rts-dashboard-investment-asset-domestic {
 
 .back-drop-background {
     background-color: #104e8e;
+}
+
+.pro-name{
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff1919;
 }

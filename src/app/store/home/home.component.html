@@ -1,61 +1,118 @@
-<div fxLayout="column">
-    <div fxLayout="row" fxFlex="70vh" style="padding: 10vh 0px;background-image: linear-gradient(#fc7e7a, #fd4d49);">
-        <div fxFlex></div>
-        <div fxFlex="70" fxLayoutAling="center center"  fxLayoutGap="15px">
-            
-            <div fxLayout="column" fxFlex="40" fxLayoutGap="15px">
-                <mat-label class="text-white" >
-                    <h1 style="font-size: 40px !important; white-space:normal;line-height: 60px;">สมัครเป็นสมาชิก<br> สเวนเซ่นส์วันนี้ พร้อมรับสิทธิพิเศษมากมายรอคุณอยู่ที่นี่</h1>
-                </mat-label>
-                
-                <mat-label class="text-white" >
-                    <h3 style=" white-space:normal;">พิเศษสุดๆ! สำหรับสมาชิกสเวนเซ่นส์ ยิ่งกิน ยิ่งได้ ยิ่งคุ้ม ใครๆ ก็สมัครได้ ใช้ง่ายสะดวกสบายพร้อมสิทธิประโยชน์มากมายเพื่อคนสำคัญเช่นคุณ รอไม่ได้แล้ว สมัครเลย</h3>
-                </mat-label>
-                
-                <div fxFlex fxLayoutAling="center center">
-                    <button mat-raised-button class="btn-white" fxFlex="200px" style="max-height: 10vh !important;" (click)="goProduct()"> <b>สั่งซื้อออนไลน์</b> </button>
-                </div>
+<div *ngIf="isLoading">
+    <app-loading></app-loading>
+</div>
+<div fxLayout="column" fxLayoutGap="20px" *ngIf="!isLoading">
+
+    <div fxFlex="80%" fxLayout="column" fxLayoutGap="15px" class="container">
+        <h1>สินค้าใหม่</h1>
+        <div fxLayout="row" fxLayoutGap="15px">
+            <div *ngFor="let item of listNews" fxFlex="15">
+                <mat-card>
+                    <mat-card-content>
+                        <div fxLayout="column" class="text-center">
+                            <div fxFlex>
+                                <img src="{{item.file_image}}" height="150px">
+                            </div>
+                            <div fxFlex>
+                                <mat-label class="pro-name">{{item.cate_name}}</mat-label>
+                            </div>
+                            <div fxFlex>
+                                <mat-label>{{item.price}}.-</mat-label>
+                            </div>
+                            <div fxFlex>
+                                <mat-label><button mat-raised-button
+                                        class=" btn-pink">หยิบใส่ตะกร้า</button></mat-label>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
             </div>
-
-            <div fxFlex="60">
-                <mat-label>
-                    <img src="../../assets/banner-image.png" alt="">
-                </mat-label>
+            <div *ngIf="listNews.length <= 0" fxFill>
+                <mat-card>
+                    <mat-card-content>
+                        <div fxFill class="text-center">
+                            <mat-label>ไม่มีข้อมูล</mat-label>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
             </div>
-
-
         </div>
-        <div fxFlex></div>
     </div>
 
-    <div fxFlex style="padding: 10px 0px;">
-        <div fxFlex></div>
-        <div fxFlex="70" fxLayout="column" fxLayoutGap="15px">
-            <h1>ดีลสุดคุ้ม</h1>
-            <img src="../../assets/news/new1.jpg" width="350">
+    <div fxFlex="80%" fxLayout="column" fxLayoutGap="15px" class="container">
+        <h1>สินค้าแนะนำ</h1>
+        <div fxLayout="row" fxLayoutGap="15px">
+            <div *ngFor="let item of listRecom" fxFlex="15">
+                <mat-card>
+                    <mat-card-content>
+                        <div fxLayout="column" class="text-center">
+                            <div fxFlex>
+                                <img src="{{item.file_image}}" height="150px">
+                            </div>
+                            <div fxFlex>
+                                <mat-label class="pro-name">{{item.cate_name}}</mat-label>
+                            </div>
+                            <div fxFlex>
+                                <mat-label>{{item.price}}.-</mat-label>
+                            </div>
+                            <div fxFlex>
+                                <button mat-raised-button class=" btn-pink">หยิบใส่ตะกร้า</button>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div *ngIf="listRecom.length <= 0" fxFill>
+                <mat-card>
+                    <mat-card-content>
+                        <div fxFill class="text-center">
+                            <mat-label>ไม่มีข้อมูล</mat-label>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
-        <div fxFlex></div>
     </div>
 
-    <div fxFlex fxLayout="row" style=" background-image: url(../../assets/bg-page-bottom.png);">
-        <div fxFlex></div>
-        <div fxFlex="60">
-
-            <div fxFlex="50">
-                <mat-label>
-                    <img src="../../assets/app-screen-webp.png" alt="">
-                </mat-label>
+    <div fxFlex="80%" fxLayout="column" fxLayoutGap="15px" class="container">
+        <h1>โปรโมชั่น</h1>
+        <div fxLayout="row" fxLayoutGap="15px">
+            <div *ngFor="let item of listPromo" fxFlex="15">
+                <mat-card>
+                    <mat-card-content>
+                        <div fxLayout="column" class="text-center">
+                            <div fxFlex>
+                                <img src="{{item.file_image}}" height="150px">
+                            </div>
+                            <div fxFlex>
+                                <mat-label class="pro-name">{{item.cate_name}}</mat-label>
+                            </div>
+                            <div fxFlex>
+                                <mat-label>{{item.price}}.-</mat-label>
+                            </div>
+                            <div fxFlex>
+                                <button mat-raised-button class=" btn-pink">หยิบใส่ตะกร้า</button>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
             </div>
-
-            <div fxFlex="50" fxLayout="column" style=" padding: 10% 0%;" fxLayoutAling="center center">
-                <mat-label><h1>ดาวน์โหลดที่</h1></mat-label>
-                <div fxLayout="row" fxLayoutGap="15px">
-                    <img src="../../assets/app-store.png" alt="" width="200">
-                    <img src="../../assets/google-play.png" alt=""width="200">
-                </div>
+            <div *ngIf="listPromo.length <= 0" fxFill>
+                <mat-card>
+                    <mat-card-content>
+                        <div fxFill class="text-center">
+                            <mat-label>ไม่มีข้อมูล</mat-label>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
             </div>
         </div>
-        <div fxFlex></div>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="15px" class="container text-center">
+        <div fxFlex fxLayoutAlign="center center">
+            <button fxFlex="30" mat-raised-button class=" btn-pink" (click)="goStore()">ดูเพิ่มเติม</button>
+        </div>
     </div>
 
 </div>

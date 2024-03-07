@@ -14,6 +14,9 @@ export class ProductComponent implements OnInit {
     form: FormGroup
     listCate: any;
     listPro: any[] = [];
+    isLoading = true;
+
+    displayColumn = ['name_pro','img_pro','cate','price']
 
     mastListPro: any[] = [];
     constructor(
@@ -32,17 +35,14 @@ export class ProductComponent implements OnInit {
     }
 
     async getCategoty() {
-
-        var res = await this.categoryService.list({}).toPromise();
-        if (res != null && res.status == true) {
-            this.listCate = res.results.data;
-        }
+        await this.categoryService.list().subscribe((res: any) => {
+            if (res != null && res.status == true) {
+                this.listCate = res.results.data;
+            }
+        });
     }
 
     async getProduct(data?: any) {
-        // let _data = {
-        //     cate_id: data
-        // }
         var resPro = await lastValueFrom(this.productService.list({}));
         if (resPro != null && resPro != null) {
             let res = resPro.results.data;
@@ -53,25 +53,22 @@ export class ProductComponent implements OnInit {
                     file_image: item.file_image,
                     cate_name: item.cate_name,
                     cate_id: item.cate_id,
+                    price: item.price,
                 })
             })
-            // this.listPro = res.results.data;
+            
             this.mastListPro = this.listPro;
-            console.log(this.listPro);
-
+            this.isLoading = false;
         }
     }
 
     async selectCategory(event: any) {
         let id = event.source.value;
-        console.log(id);
-        
         if (event.value == "" || typeof event.value == 'undefined') {
             this.listPro = this.mastListPro;
         }
         else {
             this.listPro = this.mastListPro.filter(x => x.cate_id == id);
-            console.log(this.listPro);
         }
     }
 

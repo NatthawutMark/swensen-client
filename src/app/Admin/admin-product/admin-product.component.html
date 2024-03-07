@@ -20,30 +20,43 @@
                             </mat-label>
                         </div>
 
-                        <table>
+                        <table class="table-control table-bordered-2">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>รูป</th>
                                     <th>รายการสินค้า</th>
                                     <th>หมวดหมู่</th>
+                                    <th>ราคา</th>
+                                    <th>จำนวน</th>
+                                    <th>สถานะ</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let item of listPro;index as i">
                                     <th>{{i+1}}</th>
-                                    <th><img src="{{item.file_image}}" width="150px"></th>
+                                    <th style="object-fit: contain;"><img src="{{item.file_image}}" width="150px"></th>
                                     <th>{{item.name}}</th>
                                     <th>{{item.cate_name}}</th>
+                                    <th>{{item.price}}</th>
+                                    <th>{{item.qty}}</th>
+                                    <th>{{item.status_name}}</th>
                                     <th>
-                                        <button mat-raised-button class="btn-red" (click)="remove(item.id)">
-                                            ลบรายการ
-                                        </button>
+                                        <div fxLayout="row" fxLayoutGap="10px">
+                                            <button mat-raised-button class="btn-yellow" (click)="edit(item)"
+                                                fxFlex="50">
+                                                แก้ไขสินค้า
+                                            </button>
+                                            <button mat-raised-button class="btn-red" (click)="remove(item.id)"
+                                                fxFlex="50">
+                                                ลบรายการ
+                                            </button>
+                                        </div>
                                     </th>
                                 </tr>
                                 <tr *ngIf="listPro.length <= 0">
-                                    <th colspan="5">ไม่มีข้อมููล</th>
+                                    <th colspan="8">ไม่มีข้อมููล</th>
                                 </tr>
                             </tbody>
                         </table>
